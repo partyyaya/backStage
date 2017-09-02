@@ -73,7 +73,7 @@ function showTime(){
             <div class="col-xs-5">
         	</div>
             <div class="col-xs-3" style="text-align:center; padding-top:15px;">
-            <span>安安,<%=user%> | <a id="logout" href="logOut">登出</a></span>
+            安安 ,<span style="color:blue;font-size:13px"> <%=user%>  |  <a id="logout" href="logOut">登出</a></span>
         	</div>
         </div>
         <div class="col-xs-12" style="height:700px">
