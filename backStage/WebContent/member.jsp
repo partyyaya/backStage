@@ -60,6 +60,10 @@ function showTime(){
 </script>
 </head>
 <body onLoad="showTime()">
+<%
+	String user=(String)session.getAttribute("user");
+	
+%>
 <div class="container-filed">
 	<div class="row">
         <div class="col-xs-12">
@@ -69,7 +73,7 @@ function showTime(){
             <div class="col-xs-5">
         	</div>
             <div class="col-xs-3" style="text-align:center; padding-top:15px;">
-            <span>安安,partyyaya | <a id="logout" href="#">登出</a></span>
+            <span>安安,<%=user%> | <a id="logout" href="logOut">登出</a></span>
         	</div>
         </div>
         <div class="col-xs-12" style="height:700px">
