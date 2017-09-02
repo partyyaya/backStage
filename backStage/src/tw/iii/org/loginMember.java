@@ -1,4 +1,5 @@
-package tw.backStage;
+package tw.iii.org;
+
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,7 +34,7 @@ public class loginMember extends HttpServlet {
 		Properties prop = new Properties();
 		prop.setProperty("user", "root");
 		prop.setProperty("password", "root");
-		String sql = "SELECT * FROM member3 where user=? and passwd=?";
+		String sql = "SELECT * FROM manager where user=? and passwd=?";
 		try {			
 			Class.forName("com.mysql.jdbc.Driver");		
 		} catch (Exception e) {
@@ -48,14 +49,15 @@ public class loginMember extends HttpServlet {
 				pstmt.setString(1, user);
 				pstmt.setString(2, passwd);
 				ResultSet rs = pstmt.executeQuery();
+				System.out.println("123");
 				if(rs.next()) {
 					//將名稱傳回主頁
 					session.setAttribute("user", user);
-					request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+					request.getRequestDispatcher("member.jsp").forward(request, response);
 				}else {
 					out.println("<script type=\"text/javascript\">");
 					out.println("alert('帳號或密碼輸入錯誤,請重新輸入');");
-					out.println("location='logIn.jsp';");
+					out.println("location='login.jsp';");
 					out.println("</script>");
 				}
 			}

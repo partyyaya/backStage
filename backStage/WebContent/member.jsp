@@ -17,7 +17,6 @@
 .list-group-item{
     background-color:#000;
 	border:none;
-	width: 100%;
 }
 .list-group{	
 	padding:0px;
@@ -45,12 +44,11 @@
 
 #logout{
 	color:#000;
-	
 }
 
 #logout:hover{
 		color:#800000;
-	}
+}
 </style>
 <script>
 function showTime(){
@@ -63,26 +61,26 @@ function showTime(){
 </head>
 <body onLoad="showTime()">
 <div class="container-filed">
-	<div class="row" style="height:100vh;">
-        <div class="col-sm-12">
-        	<div class="col-sm-4">
+	<div class="row">
+        <div class="col-xs-12">
+        	<div class="col-xs-4">
         		<img src="img/logo2.png" height="50" width="120">
         	</div>
-            <div class="col-sm-5">
+            <div class="col-xs-5">
         	</div>
-            <div class="col-sm-3" style="text-align:center; padding-top:15px;">
+            <div class="col-xs-3" style="text-align:center; padding-top:15px;">
             <span>安安,partyyaya | <a id="logout" href="#">登出</a></span>
         	</div>
         </div>
-        <div class="col-sm-12" >
-        	<div class="list-group col-sm-2">
+        <div class="col-xs-12" style="height:700px">
+        	<div class="list-group col-xs-2">
         		<a href="#" class="list-group-item ">會員管理</a>
                 <a href="#" class="list-group-item ">權限管理</a>
 				<a href="#" class="list-group-item ">商品管理</a>
 				<a href="#" class="list-group-item ">修改帳密</a><br/><br/>	
             	<div id="gettime" style="text-align:center;">現在時間<br/><span id="time"></span></div>
         	</div>
-            <div class="col-sm-10" id="tablecontent">
+            <div class="col-xs-10" id="tablecontent">
         	
         	</div>
         </div>
