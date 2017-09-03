@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*,java.sql.*,java.io.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,6 +50,21 @@
 #logout:hover{
 		color:#800000;
 }
+
+th,td{
+	text-align:center;
+}
+
+input{
+	text-align:center;
+	border-width:0px;
+}
+
+#delete{
+	background-color:red;
+	color:black;
+	border-width:1px;
+}
 </style>
 <script>
 function showTime(){
@@ -57,12 +73,52 @@ function showTime(){
 		timeSpan.innerHTML = date.fontcolor("lightblue");
 		window.setTimeout(showTime,1000);
 }
+
+function chpasswd(e,i){
+	$.ajaxSetup({
+		async: false
+	});
+	var passwd = e.value;
+	//var oldpasswd=e.defaultValue;
+	$.get("changeByAjax?passwd="+passwd+"&user="+i,function(data,status){					
+	});
+}
+function chtel(e,i){
+	$.ajaxSetup({
+		async: false
+	});
+	var tel = e.value;
+	//var oldtel=e.defaultValue;
+	$.get("changeByAjax?tel="+tel+"&user="+i,function(data,status){					
+	});
+}
+function chemail(e,i){
+	$.ajaxSetup({
+		async: false
+	});
+	var email = e.value;
+	//var oldemail=e.defaultValue;
+	$.get("changeByAjax?email="+email+"&user="+i,function(data,status){					
+	});
+}
 </script>
 </head>
 <body onLoad="showTime()">
 <%
 	String user=(String)session.getAttribute("user");
-	
+	if(user==null){
+		request.getRequestDispatcher("login.jsp").forward(request, response);
+	}
+	Properties prop = new Properties();
+	prop.setProperty("user", "root");
+	prop.setProperty("password", "root");
+	int i=1;
+	String sql = "SELECT user,passwd,tel,email FROM member3 ";
+	try {			
+		Class.forName("com.mysql.jdbc.Driver");		
+	} catch (Exception e) {
+		System.out.println(e);
+	}		
 %>
 <div class="container-filed">
 	<div class="row">
@@ -78,30 +134,52 @@ function showTime(){
         </div>
         <div class="col-xs-12" style="height:700px">
         	<div class="list-group col-xs-2">
-        		<a href="#" class="list-group-item ">會員管理</a>
+        		<a href="member.jsp" class="list-group-item ">會員管理</a>
                 <a href="#" class="list-group-item ">權限管理</a>
 				<a href="#" class="list-group-item ">商品管理</a>
 				<a href="#" class="list-group-item ">修改帳密</a><br/><br/>	
             	<div id="gettime" style="text-align:center;">現在時間<br/><span id="time"></span></div>
         	</div>
             <div class="col-xs-10" id="tablecontent">
-				<table class="table">
-					<caption>基本的表格布局</caption>
-				    <thead>
+            <%
+            try (
+            		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ming",prop);
+            		PreparedStatement pstmt=conn.prepareStatement(sql);				
+            		)
+            	{					
+            		ResultSet rs = pstmt.executeQuery();
+            	%>          		
+				<table class="table table-bordered table-hover" >					            	
+					<caption style="font-size:25px;font-weight:bold;">會員管理</caption>
+				    <thead >
 				      <tr>
-				         <th>名称</th>
-				         <th>城市</th>
+				      	 <th>編號</th>
+				         <th>帳號</th>
+				         <th>密碼</th>
+				         <th>電話</th>
+				         <th>信箱</th>
+				         <th>刪除</th>
 				      </tr>
 				    </thead>
 				    <tbody>
+				    <%
+					while(rs.next()) { 					
+				    %>
 				      <tr>
-				         <td>Tanmay</td>
-				         <td>Bangalore</td>
+				         <td><%=i%></td>
+				         <td><%=rs.getString("user") %></td>
+				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,<%=rs.getString("user")%>)"/></td>
+				         <td><input type="text"  value="<%=rs.getString("tel") %>" onchange="chtel(this,<%=rs.getString("user")%>)"/></td>
+				         <td><input type="text"  value="<%=rs.getString("email")%>" onchange="chemail(this,<%=rs.getString("user")%>)"/></td>
+				         <td><button type="button" id="delete" onClick="del()">刪除</button></td>
 				      </tr>
-				      <tr>
-				         <td>Sachin</td>
-				         <td>Mumbai</td>
-				      </tr>
+				  <% 
+				  i++;
+			      }
+			   }catch (Exception e){
+	           		System.out.println(e);
+	           	}
+		           %>
 				    </tbody>
 				</table>
         	</div>
