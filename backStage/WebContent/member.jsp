@@ -85,7 +85,25 @@ function showTime(){
             	<div id="gettime" style="text-align:center;">現在時間<br/><span id="time"></span></div>
         	</div>
             <div class="col-xs-10" id="tablecontent">
-        	
+				<table class="table">
+					<caption>基本的表格布局</caption>
+				    <thead>
+				      <tr>
+				         <th>名称</th>
+				         <th>城市</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				         <td>Tanmay</td>
+				         <td>Bangalore</td>
+				      </tr>
+				      <tr>
+				         <td>Sachin</td>
+				         <td>Mumbai</td>
+				      </tr>
+				    </tbody>
+				</table>
         	</div>
         </div>
 	</div>
