@@ -60,11 +60,6 @@ input{
 	border-width:0px;
 }
 
-#delete{
-	background-color:red;
-	color:black;
-	border-width:1px;
-}
 </style>
 <script>
 function showTime(){
@@ -101,6 +96,13 @@ function chemail(e,i){
 	$.get("changeByAjax?email="+email+"&user="+i,function(data,status){					
 	});
 }
+
+function del(btn,i){	
+	$.get("delByAjax?user="+i,function(data,status){					
+	});
+	var row = btn.parentNode.parentNode;
+	row.parentNode.removeChild(row);
+}
 </script>
 </head>
 <body onLoad="showTime()">
@@ -113,7 +115,7 @@ function chemail(e,i){
 	prop.setProperty("user", "root");
 	prop.setProperty("password", "root");
 	int i=1;
-	String sql = "SELECT user,passwd,tel,email FROM member3 ";
+	String sql = "SELECT user,passwd,tel,email FROM member ";
 	try {			
 		Class.forName("com.mysql.jdbc.Driver");		
 	} catch (Exception e) {
@@ -143,7 +145,7 @@ function chemail(e,i){
             <div class="col-xs-10" id="tablecontent">
             <%
             try (
-            		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ming",prop);
+            		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
             		PreparedStatement pstmt=conn.prepareStatement(sql);				
             		)
             	{					
@@ -171,7 +173,7 @@ function chemail(e,i){
 				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,<%=rs.getString("user")%>)"/></td>
 				         <td><input type="text"  value="<%=rs.getString("tel") %>" onchange="chtel(this,<%=rs.getString("user")%>)"/></td>
 				         <td><input type="text"  value="<%=rs.getString("email")%>" onchange="chemail(this,<%=rs.getString("user")%>)"/></td>
-				         <td><button type="button" id="delete" onClick="del()">刪除</button></td>
+				         <td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td>
 				      </tr>
 				  <% 
 				  i++;
