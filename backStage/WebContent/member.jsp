@@ -134,7 +134,7 @@ function del(btn,i){
             安安 ,<span style="color:blue;font-size:13px"> <%=user%>  |  <a id="logout" href="logOut">登出</a></span>
         	</div>
         </div>
-        <div class="col-xs-12" style="height:700px">
+        <div class="col-xs-12" style="height:100vh">
         	<div class="list-group col-xs-2">
         		<a href="member.jsp" class="list-group-item ">會員管理</a>
                 <a href="#" class="list-group-item ">權限管理</a>
