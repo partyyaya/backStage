@@ -142,7 +142,7 @@ function del(btn,i){
 				<a href="#" class="list-group-item ">修改帳密</a><br/><br/>	
             	<div id="gettime" style="text-align:center;">現在時間<br/><span id="time"></span></div>
         	</div>
-            <div class="col-xs-10" id="tablecontent">
+            <div class="col-xs-10" id="tablecontent" style="overflow-y:scroll; SCROLLBAR-FACE-COLOR: #c2d3fc;">
             <%
             try (
             		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
@@ -151,7 +151,7 @@ function del(btn,i){
             	{					
             		ResultSet rs = pstmt.executeQuery();
             	%>          		
-				<table class="table table-bordered table-hover" >					            	
+				<table class="table table-bordered table-hover">					            	
 					<caption style="font-size:25px;font-weight:bold;">會員管理</caption>
 				    <thead >
 				      <tr>
@@ -168,6 +168,7 @@ function del(btn,i){
 					while(rs.next()) { 					
 				    %>
 				      <tr>
+				      
 				         <td><%=i%></td>
 				         <td><%=rs.getString("user") %></td>
 				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,<%=rs.getString("user")%>)"/></td>
@@ -175,14 +176,14 @@ function del(btn,i){
 				         <td><input type="text"  value="<%=rs.getString("email")%>" onchange="chemail(this,<%=rs.getString("user")%>)"/></td>
 				         <td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td>
 				      </tr>
-				  <% 
-				  i++;
-			      }
-			   }catch (Exception e){
-	           		System.out.println(e);
-	           	}
-		           %>
-				    </tbody>
+					  <% 
+					  i++;
+				      }
+				   }catch (Exception e){
+		           		System.out.println(e);
+		           }
+			           %>
+		           </tbody>
 				</table>
         	</div>
         </div>
@@ -190,3 +191,4 @@ function del(btn,i){
 </div>
 </body>
 </html>
+
