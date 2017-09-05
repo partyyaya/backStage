@@ -26,9 +26,9 @@ public class delByAjax extends HttpServlet {
 		prop.setProperty("user", "root");
 		prop.setProperty("password", "root");
 				
-		String sql = "DELETE FROM member WHERE user=?";
+		String sql = "DELETE FROM member3 WHERE user=?";
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ming",prop);
 				PreparedStatement pstmt=conn.prepareStatement(sql);
 				)
 			{	

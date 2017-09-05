@@ -8,10 +8,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!--設最大寬度為一倍,使用者不可用2指拉大(user-scalable=no)-->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
-    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="shortcut icon" href="img/logo2.png">
 <title>樂活之旅</title>
 <style>
@@ -115,7 +115,7 @@ function del(btn,i){
 	prop.setProperty("user", "root");
 	prop.setProperty("password", "root");
 	int i=1;
-	String sql = "SELECT user,passwd,tel,email FROM member ";
+	String sql = "SELECT user,passwd,tel,email FROM member3 ";
 	try {			
 		Class.forName("com.mysql.jdbc.Driver");		
 	} catch (Exception e) {
@@ -145,7 +145,7 @@ function del(btn,i){
             <div class="col-xs-10" id="tablecontent" style="overflow-y:scroll; SCROLLBAR-FACE-COLOR: #c2d3fc;">
             <%
             try (
-            		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
+            		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ming",prop);
             		PreparedStatement pstmt=conn.prepareStatement(sql);				
             		)
             	{					

@@ -12,10 +12,10 @@ if(have !=null) {
 <!--設寬度為硬體寬的一倍( initial-scale=1)-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!--設最大寬度為一倍,使用者不可用2指拉大(user-scalable=no)-->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
-    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 	body {
 		background-image: url("img/bg.gif");
@@ -28,8 +28,8 @@ if(have !=null) {
 <img src="img/logo.png" height="52" width="136" style="opacity:0.8">
 <div class="container">
 	<div class="row">
-        <div class="col-sm-4"></div>
-        <form class="col-sm-4 form-horizontal" action="loginMember"  method='post' style="margin-top:17%;border-radius: 4px;border: 2px solid rgba(95,95,107,0.5);background-color: rgba(52,52,59,0.7);">
+        
+        <form class="col-sm-4 col-sm-offset-4 form-horizontal" action="loginMember"  method='post' style="margin-top:17%;border-radius: 4px;border: 2px solid rgba(95,95,107,0.5);background-color: rgba(52,52,59,0.7);">
             <div class="form-group">
             <label for="userName" class="col-sm-3 control-label" style="margin-top:2px;font-size:22px;color:black;">登入</label>    	  
             </div>
