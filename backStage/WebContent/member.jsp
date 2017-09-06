@@ -103,19 +103,26 @@ function del(btn,i){
 	var row = btn.parentNode.parentNode;
 	row.parentNode.removeChild(row);
 }
+
+function inquire(e){
+	var name = e.value;
+	window.location.replace("member.jsp?name="+name);
+}
 </script>
 </head>
 <body onLoad="showTime()">
 <%
 	String user=(String)session.getAttribute("user");
+	String name=(String)request.getParameter("name");
 	if(user==null){
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
+	String where = name ==null?"":("WHERE user="+name);
 	Properties prop = new Properties();
 	prop.setProperty("user", "root");
 	prop.setProperty("password", "root");
 	int i=1;
-	String sql = "SELECT user,passwd,tel,email FROM member3 ";
+	String sql = "SELECT user,passwd,tel,email FROM member "+where;
 	try {			
 		Class.forName("com.mysql.jdbc.Driver");		
 	} catch (Exception e) {
@@ -145,14 +152,15 @@ function del(btn,i){
             <div class="col-xs-10" id="tablecontent" style="overflow-y:scroll; SCROLLBAR-FACE-COLOR: #c2d3fc;">
             <%
             try (
-            		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ming",prop);
+            		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
             		PreparedStatement pstmt=conn.prepareStatement(sql);				
             		)
             	{					
             		ResultSet rs = pstmt.executeQuery();
-            	%>          		
-				<table class="table table-bordered table-hover">					            	
-					<caption style="font-size:25px;font-weight:bold;">會員管理</caption>
+            	%> 
+            	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">會員管理</div><br/><br/>
+				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢會員名稱:<input type="text" placeholder="請輸入查詢帳號" onchange="inquire(this)"/></div>   		
+				<table class="table table-bordered table-hover">					            					
 				    <thead >
 				      <tr>
 				      	 <th>編號</th>
@@ -185,6 +193,7 @@ function del(btn,i){
 			           %>
 		           </tbody>
 				</table>
+				<div style="font-size:10px;font-weight:bold;text-align:center;">總共符合:<%=i-1%>筆資料</div>
         	</div>
         </div>
 	</div>
