@@ -12,8 +12,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="http://www.bootcss.com/p/bootstrap-switch/static/stylesheets/bootstrapSwitch.css">
+<script src="http://www.bootcss.com/p/bootstrap-switch/static/js/bootstrapSwitch.js"></script>
+
 <link rel="shortcut icon" href="img/logo2.png">
 <title>樂活之旅</title>
+
 <style>
 .list-group-item{
     background-color:#000;
@@ -60,8 +65,11 @@ input{
 	border-width:0px;
 }
 
+.switch {height:28px; }
 </style>
-<script>
+
+<script >
+
 function showTime(){
 		var timeSpan = document.getElementById("time");
 		var date  = new Date().toLocaleString();
@@ -75,30 +83,13 @@ function chpasswd(e,i){
 	});
 	var passwd = e.value;
 	//var oldpasswd=e.defaultValue;
-	$.get("changeByAjax?passwd="+passwd+"&user="+i,function(data,status){					
-	});
-}
-function chtel(e,i){
-	$.ajaxSetup({
-		async: false
-	});
-	var tel = e.value;
-	//var oldtel=e.defaultValue;
-	$.get("changeByAjax?tel="+tel+"&user="+i,function(data,status){					
-	});
-}
-function chemail(e,i){
-	$.ajaxSetup({
-		async: false
-	});
-	var email = e.value;
-	//var oldemail=e.defaultValue;
-	$.get("changeByAjax?email="+email+"&user="+i,function(data,status){					
+	$.get("chmanagerByAjax?passwd="+passwd+"&user="+i,function(data,status){					
 	});
 }
 
+
 function del(btn,i){	
-	$.get("delByAjax?user="+i,function(data,status){					
+	$.get("delmanagerByAjax?user="+i,function(data,status){					
 	});
 	var row = btn.parentNode.parentNode;
 	row.parentNode.removeChild(row);
@@ -106,10 +97,28 @@ function del(btn,i){
 
 function inquire(e){
 	var name = e.value;
-	window.location.replace("member.jsp?name="+name);
+	
+	window.location.replace("manager.jsp?name="+name);
 }
+
+function switches(a,i){
+	$.ajaxSetup({ 
+		async: false
+	});
+	var author;
+	alert(author);
+	if (a.checked) 
+	{ 
+		author="1";
+	}else{author="0";} 
+	$.get("chmanagerByAjax?author="+author+"&user="+i,function(data,status){					
+	});
+}
+
 </script>
+
 </head>
+
 <body onLoad="showTime()">
 <%
 	String user=(String)session.getAttribute("user");
@@ -122,7 +131,7 @@ function inquire(e){
 	prop.setProperty("user", "root");
 	prop.setProperty("password", "root");
 	int i=1;
-	String sql = "SELECT user,passwd,tel,email FROM member "+where;
+	String sql = "SELECT user,passwd,authority FROM manager "+where;
 	try {			
 		Class.forName("com.mysql.jdbc.Driver");		
 	} catch (Exception e) {
@@ -159,20 +168,20 @@ function inquire(e){
             		ResultSet rs = pstmt.executeQuery();
             	%> 
             	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">會員管理</div><br/><br/>
-				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢會員名稱:<input type="text" placeholder="請輸入查詢帳號" onchange="inquire(this)"/></div>   		
+				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢管理員名稱:<input type="text" placeholder="請輸入查詢帳號" onchange="inquire(this)" /></div>   		
 				<table class="table table-bordered table-hover">					            					
 				    <thead >
 				      <tr>
 				      	 <th>編號</th>
 				         <th>帳號</th>
 				         <th>密碼</th>
-				         <th>電話</th>
-				         <th>信箱</th>
+				         <th>權限</th>
 				         <th>刪除</th>
 				      </tr>
 				    </thead>
 				    <tbody>
 				    <%
+		
 					while(rs.next()) { 					
 				    %>
 				      <tr>
@@ -180,8 +189,7 @@ function inquire(e){
 				         <td><%=i%></td>
 				         <td><%=rs.getString("user") %></td>
 				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,<%=rs.getString("user")%>)"/></td>
-				         <td><input type="text"  value="<%=rs.getString("tel") %>" onchange="chtel(this,<%=rs.getString("user")%>)"/></td>
-				         <td><input type="text"  value="<%=rs.getString("email")%>" onchange="chemail(this,<%=rs.getString("user")%>)"/></td>
+				         <td><div class="switch" data-on="primary" data-off="danger"><input type="checkbox" <% if(Integer.parseInt(rs.getString("authority"))>=1){%>checked<%}%> onchange="switches(this,<%=rs.getString("user")%>)" /></div></td>
 				         <td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td>
 				      </tr>
 					  <% 
