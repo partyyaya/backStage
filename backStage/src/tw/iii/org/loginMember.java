@@ -53,6 +53,7 @@ public class loginMember extends HttpServlet {
 				if(rs.next()) {
 					//將名稱傳回主頁
 					session.setAttribute("user", user);
+					session.setAttribute("authority", rs.getString("authority"));
 					request.getRequestDispatcher("member.jsp").forward(request, response);
 				}else {
 					out.println("<script type=\"text/javascript\">");

@@ -113,6 +113,9 @@ function inquire(e){
 <body onLoad="showTime()">
 <%
 	String user=(String)session.getAttribute("user");
+	String authority=(String)session.getAttribute("authority");
+	int author=Integer.parseInt(authority);
+	
 	String name=(String)request.getParameter("name");
 	if(user==null){
 		request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -168,7 +171,7 @@ function inquire(e){
 				         <th>密碼</th>
 				         <th>電話</th>
 				         <th>信箱</th>
-				         <th>刪除</th>
+				         <%if(author>=1){%><th>刪除</th><%} %>
 				      </tr>
 				    </thead>
 				    <tbody>
@@ -182,7 +185,7 @@ function inquire(e){
 				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,<%=rs.getString("user")%>)"/></td>
 				         <td><input type="text"  value="<%=rs.getString("tel") %>" onchange="chtel(this,<%=rs.getString("user")%>)"/></td>
 				         <td><input type="text"  value="<%=rs.getString("email")%>" onchange="chemail(this,<%=rs.getString("user")%>)"/></td>
-				         <td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td>
+				         <%if(author>=1){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td><%} %>
 				      </tr>
 					  <% 
 					  i++;

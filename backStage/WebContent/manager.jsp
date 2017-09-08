@@ -122,16 +122,19 @@ function switches(a,i){
 <body onLoad="showTime()">
 <%
 	String user=(String)session.getAttribute("user");
+	String authority=(String)session.getAttribute("authority");
+	int author=Integer.parseInt(authority);
+	
 	String name=(String)request.getParameter("name");
 	if(user==null){
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
-	String where = name ==null?"":("WHERE user="+name);
+	String where = name ==null?"":(" and user="+name);
 	Properties prop = new Properties();
 	prop.setProperty("user", "root");
 	prop.setProperty("password", "root");
 	int i=1;
-	String sql = "SELECT user,passwd,authority FROM manager "+where;
+	String sql = "SELECT user,passwd,authority FROM manager WHERE authority <="+author+where;
 	try {			
 		Class.forName("com.mysql.jdbc.Driver");		
 	} catch (Exception e) {
@@ -175,8 +178,8 @@ function switches(a,i){
 				      	 <th>編號</th>
 				         <th>帳號</th>
 				         <th>密碼</th>
-				         <th>權限</th>
-				         <th>刪除</th>
+				         <%if(author==2){%><th>權限</th><%} %>
+				         <%if(author==2){%><th>刪除</th><%} %>
 				      </tr>
 				    </thead>
 				    <tbody>
@@ -187,10 +190,10 @@ function switches(a,i){
 				      <tr>
 				      
 				         <td><%=i%></td>
-				         <td><%=rs.getString("user") %></td>
+				         <td><%=rs.getString("user")%></td>
 				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,<%=rs.getString("user")%>)"/></td>
-				         <td><div class="switch" data-on="primary" data-off="danger"><input type="checkbox" <% if(Integer.parseInt(rs.getString("authority"))>=1){%>checked<%}%> onchange="switches(this,<%=rs.getString("user")%>)" /></div></td>
-				         <td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td>
+				         <%if(author==2){%><td><div class="switch" data-on="primary" data-off="danger"><input type="checkbox" <% if(Integer.parseInt(rs.getString("authority"))>=1){%>checked<%};%> onchange="switches(this,<%=rs.getString("user")%>)" /></div></td><%}; %>
+				         <%if(author==2){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td><%}; %>
 				      </tr>
 					  <% 
 					  i++;
