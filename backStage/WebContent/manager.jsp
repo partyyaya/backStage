@@ -106,7 +106,6 @@ function switches(a,i){
 		async: false
 	});
 	var author;
-	alert(author);
 	if (a.checked) 
 	{ 
 		author="1";
@@ -121,6 +120,9 @@ function switches(a,i){
 
 <body onLoad="showTime()">
 <%
+	response.setContentType("text/html;charset=UTF-8");
+	request.setCharacterEncoding("UTF-8");
+
 	String user=(String)session.getAttribute("user");
 	String authority=(String)session.getAttribute("authority");
 	int author=Integer.parseInt(authority);
@@ -129,7 +131,7 @@ function switches(a,i){
 	if(user==null){
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
-	String where = name ==null?"":(" and user="+name);
+	String where = name ==null?"":(" and user like '%"+name+"%'");
 	Properties prop = new Properties();
 	prop.setProperty("user", "root");
 	prop.setProperty("password", "root");
@@ -157,7 +159,7 @@ function switches(a,i){
         	<div class="list-group col-xs-2">
         		<a href="member.jsp" class="list-group-item ">會員管理</a>
                 <a href="manager.jsp" class="list-group-item ">權限管理</a>
-				<a href="#" class="list-group-item ">商品管理</a>
+				<a href="gift.jsp" class="list-group-item ">商品管理</a>
 				<a href="#" class="list-group-item ">修改帳密</a><br/><br/>	
             	<div id="gettime" style="text-align:center;">現在時間<br/><span id="time"></span></div>
         	</div>

@@ -69,36 +69,8 @@ function showTime(){
 		window.setTimeout(showTime,1000);
 }
 
-function chpasswd(e,i){
-	$.ajaxSetup({
-		async: false
-	});
-	var passwd = e.value;
-	//var oldpasswd=e.defaultValue;
-	$.get("changeByAjax?passwd="+passwd+"&user="+i,function(data,status){					
-	});
-}
-function chtel(e,i){
-	$.ajaxSetup({
-		async: false
-	});
-	var tel = e.value;
-	//var oldtel=e.defaultValue;
-	$.get("changeByAjax?tel="+tel+"&user="+i,function(data,status){					
-	});
-}
-function chemail(e,i){
-	$.ajaxSetup({
-		async: false
-	});
-	var email = e.value;
-	//var oldemail=e.defaultValue;
-	$.get("changeByAjax?email="+email+"&user="+i,function(data,status){					
-	});
-}
-
 function del(btn,i){	
-	$.get("delByAjax?user="+i,function(data,status){					
+	$.get("delgiftByAjax?Name="+i,function(data,status){					
 	});
 	var row = btn.parentNode.parentNode;
 	row.parentNode.removeChild(row);
@@ -106,26 +78,28 @@ function del(btn,i){
 
 function inquire(e){
 	var name = e.value;
-	window.location.replace("member.jsp?name="+name);
+	window.location.replace("gift.jsp?name="+name);
 }
 </script>
 </head>
 <body onLoad="showTime()">
 <%
 	String user=(String)session.getAttribute("user");
-	String authority=(String)session.getAttribute("authority");
-	int author=Integer.parseInt(authority);
-	
-	String name=(String)request.getParameter("name");
 	if(user==null){
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
-	String where = name ==null?"":("WHERE user like '%"+name+"%'");
+	String authority=(String)session.getAttribute("authority");
+	int author=Integer.parseInt(authority);
+	
+	String name=(String)request.getParameter("name");	
+	System.out.println(name);
+	String where = name ==null?"":("WHERE Name LIKE '%"+ name +"%'");	
 	Properties prop = new Properties();
 	prop.setProperty("user", "root");
 	prop.setProperty("password", "root");
 	int i=1;
-	String sql = "SELECT user,passwd,tel,email FROM member "+where;
+	String sql = "SELECT * FROM gift "+where;
+	System.out.println(sql);
 	try {			
 		Class.forName("com.mysql.jdbc.Driver");		
 	} catch (Exception e) {
@@ -158,7 +132,7 @@ function inquire(e){
             		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
             		PreparedStatement pstmt=conn.prepareStatement(sql);				
             		)
-            	{					
+            	{	
             		ResultSet rs = pstmt.executeQuery();
             	%> 
             	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">會員管理</div><br/><br/>
@@ -167,10 +141,10 @@ function inquire(e){
 				    <thead >
 				      <tr>
 				      	 <th>編號</th>
-				         <th>帳號</th>
-				         <th>密碼</th>
+				         <th>商品名</th>
+				         <th>供應商</th>
+				         <th>價格</th>
 				         <th>電話</th>
-				         <th>信箱</th>
 				         <%if(author>=1){%><th>刪除</th><%} %>
 				      </tr>
 				    </thead>
@@ -181,11 +155,11 @@ function inquire(e){
 				      <tr>
 				      
 				         <td><%=i%></td>
-				         <td><%=rs.getString("user") %></td>
-				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,<%=rs.getString("user")%>)"/></td>
-				         <td><input type="text"  value="<%=rs.getString("tel") %>" onchange="chtel(this,<%=rs.getString("user")%>)"/></td>
-				         <td><input type="text"  value="<%=rs.getString("email")%>" onchange="chemail(this,<%=rs.getString("user")%>)"/></td>
-				         <%if(author>=1){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td><%} %>
+				         <td><%=rs.getString("Name") %></td>
+				         <td><%=rs.getString("ProduceOrg") %></td>
+				         <td><%=rs.getString("Price") %></td>
+				         <td><%=rs.getString("ContactTel")%></td>
+				         <%if(author>=1){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("Name")%>)">刪除</button></td><%} %>
 				      </tr>
 					  <% 
 					  i++;
