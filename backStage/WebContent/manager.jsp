@@ -5,7 +5,6 @@
 <html>
 <head>
     <!--設寬度為硬體寬的一倍( initial-scale=1)-->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!--設最大寬度為一倍,使用者不可用2指拉大(user-scalable=no)-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -102,9 +101,7 @@ function inquire(e){
 }
 
 function switches(a,i){
-	$.ajaxSetup({ 
-		async: false
-	});
+	
 	var author;
 	if (a.checked) 
 	{ 
@@ -120,7 +117,6 @@ function switches(a,i){
 
 <body onLoad="showTime()">
 <%
-
 	String user=(String)session.getAttribute("user");
 	String authority=(String)session.getAttribute("authority");
 	int author=Integer.parseInt(authority);
@@ -185,15 +181,16 @@ function switches(a,i){
 				    <tbody>
 				    <%
 		
-					while(rs.next()) { 					
+					while(rs.next()) {
+						System.out.println(rs.getString("user"));
 				    %>
 				      <tr>
 				      
 				         <td><%=i%></td>
 				         <td><%=rs.getString("user")%></td>
 				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,<%=rs.getString("user")%>)"/></td>
-				         <%if(author==2){%><td><div class="switch" data-on="primary" data-off="danger"><input type="checkbox" <% if(Integer.parseInt(rs.getString("authority"))>=1){%>checked<%};%> onchange="switches(this,<%=rs.getString("user")%>)" /></div></td><%}; %>
-				         <%if(author==2){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td><%}; %>
+				         <%if(author==2){%><td><div class="switch" data-on="primary" data-off="danger"><input type="checkbox" onchange="switches(this,<%=rs.getString("user")%>)" <% if(Integer.parseInt(rs.getString("authority"))>=1){%>checked<%}%> /></div></td><%} %>
+				         <%if(author==2){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td><%} %>
 				      </tr>
 					  <% 
 					  i++;

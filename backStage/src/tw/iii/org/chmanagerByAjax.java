@@ -33,6 +33,7 @@ public class chmanagerByAjax extends HttpServlet {
 		String name = passwd==null?(author==null?null:"authority"):"passwd";
 		String value = name=="passwd"?passwd:(name=="authority"?author:null);
 		String sql = "UPDATE manager SET "+name+"=? WHERE user=?";
+		System.out.println(sql);
 		try (
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
 				PreparedStatement pstmt=conn.prepareStatement(sql);

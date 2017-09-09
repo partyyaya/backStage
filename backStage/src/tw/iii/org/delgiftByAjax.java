@@ -32,6 +32,7 @@ public class delgiftByAjax extends HttpServlet {
 				PreparedStatement pstmt=conn.prepareStatement(sql);
 				)
 			{	
+			System.out.println(Name);
 			pstmt.setString(1,Name);
 			pstmt.execute();
 			}catch (Exception e){
