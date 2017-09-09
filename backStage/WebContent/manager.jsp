@@ -188,9 +188,9 @@ function switches(a,i){
 				      
 				         <td><%=i%></td>
 				         <td><%=rs.getString("user")%></td>
-				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,<%=rs.getString("user")%>)"/></td>
-				         <%if(author==2){%><td><div class="switch" data-on="primary" data-off="danger"><input type="checkbox" onchange="switches(this,<%=rs.getString("user")%>)" <% if(Integer.parseInt(rs.getString("authority"))>=1){%>checked<%}%> /></div></td><%} %>
-				         <%if(author==2){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("user")%>)">刪除</button></td><%} %>
+				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,'<%=rs.getString("user")%>')"/></td>
+				         <%if(author==2){%><td><div class="switch" data-on="primary" data-off="danger"><input type="checkbox" onchange="switches(this,'<%=rs.getString("user")%>')" <% if(Integer.parseInt(rs.getString("authority"))>=1){%>checked<%}%> /></div></td><%} %>
+				         <%if(author==2){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,'<%=rs.getString("user")%>')">刪除</button></td><%} %>
 				      </tr>
 					  <% 
 					  i++;
