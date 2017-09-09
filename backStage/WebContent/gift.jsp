@@ -162,7 +162,7 @@ function inquire(e){
 				         <td><%=rs.getString("ProduceOrg") %></td>
 				         <td><%=rs.getString("Price") %></td>
 				         <td><%=rs.getString("ContactTel")%></td>
-				         <%if(author>=1){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,<%=rs.getString("Name")%>)">刪除</button></td><%} %>
+				         <%if(author>=1){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,'<%=rs.getString("Name")%>')">刪除</button></td><%} %>
 				      </tr>
 					  <% 
 					  i++;
