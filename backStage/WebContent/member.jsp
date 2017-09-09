@@ -149,7 +149,7 @@ function inquire(e){
         		<a href="member.jsp" class="list-group-item ">會員管理</a>
                 <a href="manager.jsp" class="list-group-item ">權限管理</a>
 				<a href="gift.jsp" class="list-group-item ">商品管理</a>
-				<a href="#" class="list-group-item ">修改帳密</a><br/><br/>	
+				<a href="change.jsp" class="list-group-item ">修改帳密</a><br/><br/>	
             	<div id="gettime" style="text-align:center;">現在時間<br/><span id="time"></span></div>
         	</div>
             <div class="col-xs-10" id="tablecontent" style="overflow-y:scroll; SCROLLBAR-FACE-COLOR: #c2d3fc;">

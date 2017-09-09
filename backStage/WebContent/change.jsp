@@ -5,15 +5,19 @@
 <html>
 <head>
     <!--設寬度為硬體寬的一倍( initial-scale=1)-->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!--設最大寬度為一倍,使用者不可用2指拉大(user-scalable=no)-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="http://www.bootcss.com/p/bootstrap-switch/static/stylesheets/bootstrapSwitch.css">
+<script src="http://www.bootcss.com/p/bootstrap-switch/static/js/bootstrapSwitch.js"></script>
+
 <link rel="shortcut icon" href="img/logo2.png">
 <title>樂活之旅</title>
+
 <style>
 .list-group-item{
     background-color:#000;
@@ -60,8 +64,11 @@ input{
 	border-width:0px;
 }
 
+.switch {height:28px; }
 </style>
-<script>
+
+<script >
+
 function showTime(){
 		var timeSpan = document.getElementById("time");
 		var date  = new Date().toLocaleString();
@@ -69,40 +76,62 @@ function showTime(){
 		window.setTimeout(showTime,1000);
 }
 
-function del(btn,i){	
-	$.get("delgiftByAjax?Name="+i,function(data,status){					
-	});
-	var row = btn.parentNode.parentNode;
-	row.parentNode.removeChild(row);
+function doubleCheck(){
+	var passwd = document.getElementById("newPasswd").value;
+	var ckpasswd = document.getElementById("cknewPasswd").value;
+	var spanNode = document.getElementById("ckId");
+	if(passwd == ckpasswd){
+		//符合规则
+		spanNode.innerHTML = "✔ ok".fontcolor("green");
+		return true;
+	}else{
+		//不符合规则
+		spanNode.innerHTML = "請重新確認".fontcolor("red");		
+		return false;
+	}
 }
 
-function inquire(e){
-	var name = e.value;
-	window.location.replace("gift.jsp?name="+name);
+function checkPass(){
+	var inputNode = document.getElementById("newPasswd");
+	var spanNode = document.getElementById("passwdId");	
+	var content  = inputNode.value;
+	var reg =/^[a-z0-9]{1,20}$/i;	
+	if(reg.test(content)){
+		//符合规则
+		spanNode.innerHTML = "✔ ok".fontcolor("green");
+		
+		return true;
+	}else{
+		//不符合规则
+		spanNode.innerHTML ="請重新輸入".fontcolor("red");		
+		return false;
+	}	
 }
+
+function checkAll(){
+	var passwd = checkPass();
+	var ck = doubleCheck();
+	if(passwd && ck){
+		return true;
+	}	
+		return false;
+}
+
 </script>
+
 </head>
+
 <body onLoad="showTime()">
 <%
 	String user=(String)session.getAttribute("user");
 	if(user==null){
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
-	String authority=(String)session.getAttribute("authority");
-	int author=Integer.parseInt(authority);
-	
-	String name=(String)request.getParameter("name");	
-	System.out.println(name);
-	String where = name ==null?"":("WHERE Name LIKE '%"+name+"%'");	
-	
 	Properties prop = new Properties();
 	prop.setProperty("user", "root");
 	prop.setProperty("password", "root");
-	int i=1;
-	String sql = "SELECT * FROM gift "+where;
-		 
+	String sql = "SELECT user,passwd,authority FROM manager WHERE user= '"+user+"'";
 	System.out.println(sql);
-	
 	try {			
 		Class.forName("com.mysql.jdbc.Driver");		
 	} catch (Exception e) {
@@ -135,45 +164,60 @@ function inquire(e){
             		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
             		PreparedStatement pstmt=conn.prepareStatement(sql);				
             		)
-            	{	
+            	{					
             		ResultSet rs = pstmt.executeQuery();
             	%> 
-            	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">會員管理</div><br/><br/>
-				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢商品名稱:<input type="text" placeholder="請輸入查詢帳號" onchange="inquire(this)"/></div>   		
-				<table class="table table-bordered table-hover">					            					
-				    <thead >
-				      <tr>
-				      	 <th>編號</th>
-				         <th>商品名</th>
-				         <th>供應商</th>
-				         <th>價格</th>
-				         <th>電話</th>
-				         <%if(author>=1){%><th>刪除</th><%} %>
-				      </tr>
-				    </thead>
-				    <tbody>
-				    <%
-					while(rs.next()) { 					
+            	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">帳號管理</div><br/>
+				    <br/>
+				    <%		
+					if(rs.next()) {
 				    %>
-				      <tr>
-				      
-				         <td><%=i%></td>
-				         <td><%=rs.getString("Name") %></td>
-				         <td><%=rs.getString("ProduceOrg") %></td>
-				         <td><%=rs.getString("Price") %></td>
-				         <td><%=rs.getString("ContactTel")%></td>
-				         <%if(author>=1){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,'<%=rs.getString("Name")%>')">刪除</button></td><%} %>
-				      </tr>
+				<form class="col-sm-5 form-horizontal" action="changeData" method='post' onsubmit="return checkAll();"  style="border-radius: 4px;height:450px;border: 2px solid black;background-color: rgba(0,0,0,0.3);">
+						<br/><br/><br/>
+	<div class="form-group" style="margin-top:2px">
+	<label for="user" class="col-sm-3 control-label" style="color:black;font-weight:bold;font-size:15px;">帳號 : </label>
+    	<div class="col-sm-6">
+      		<input type="text"  class="form-control" value="<%=rs.getString("user") %>" readonly />
+    	</div>
+    </div>
+    <div class="form-group" style="margin-top:2px">
+	<label for="user" class="col-sm-3 control-label" style="color:black;font-weight:bold;font-size:15px;">密碼 : </label>
+    	<div class="col-sm-6">
+      		<input type="text"  class="form-control" value="<%=rs.getString("passwd") %>" readonly />
+    	</div>
+    </div>
+	<div class="form-group" style="margin-top:2px">
+	<label for="passwd" class="col-sm-3 control-label" style="color:black;font-weight:bold;font-size:15px;">新密碼 :</label>
+    	<div class="col-sm-6">
+      		<input type="password" name="passwd" id="newPasswd" class="form-control" placeholder="設置新密碼(英文或數字)" onblur="checkPass()">
+    	</div>
+    	<span id="passwdId" class="col-sm-3" style="padding-top:7px;"></span>
+    </div>
+    <div class="form-group" style="margin-top:2px">
+	<label for="ckpasswd" class="col-sm-3 control-label" style="color:black;font-weight:bold;font-size:15px;">確認密碼 : </label>
+    	<div class="col-sm-6">
+      		<input type="password" class="form-control" id="cknewPasswd" placeholder="確認新密碼" onblur="doubleCheck()">
+    	</div>
+    	<span id="ckId" class="col-sm-3" style="padding-top:7px;"></span>
+    </div>
+    <div class="form-group" style="margin-top:2px">
+	<label for="user" class="col-sm-3 control-label" style="color:black;font-weight:bold;font-size:15px;">權力等級 : </label>
+    	<div class="col-sm-6">
+      		<input type="text"  class="form-control" value="<%=rs.getString("authority") %>" readonly />
+    	</div>
+    </div>
+    <div class="form-group">
+		<div class="col-sm-offset-3 col-sm-6">
+			<input type="submit" class="btn btn-default" value="確定更改"/>
+		</div>
+	</div>
+</form>	
 					  <% 
-					  i++;
 				      }
 				   }catch (Exception e){
 		           		System.out.println(e);
 		           }
 			           %>
-		           </tbody>
-				</table>
-				<div style="font-size:10px;font-weight:bold;text-align:center;">總共符合:<%=i-1%>筆資料</div>
         	</div>
         </div>
 	</div>
