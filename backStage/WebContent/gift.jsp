@@ -93,13 +93,16 @@ function inquire(e){
 	
 	String name=(String)request.getParameter("name");	
 	System.out.println(name);
-	String where = name ==null?"":("WHERE Name LIKE '%"+ name +"%'");	
+	String where = name ==null?"":("WHERE Name LIKE '%"+name+"%'");	
+	
 	Properties prop = new Properties();
 	prop.setProperty("user", "root");
 	prop.setProperty("password", "root");
 	int i=1;
 	String sql = "SELECT * FROM gift "+where;
+		 
 	System.out.println(sql);
+	
 	try {			
 		Class.forName("com.mysql.jdbc.Driver");		
 	} catch (Exception e) {
@@ -136,7 +139,7 @@ function inquire(e){
             		ResultSet rs = pstmt.executeQuery();
             	%> 
             	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">會員管理</div><br/><br/>
-				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢會員名稱:<input type="text" placeholder="請輸入查詢帳號" onchange="inquire(this)"/></div>   		
+				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢商品名稱:<input type="text" placeholder="請輸入查詢帳號" onchange="inquire(this)"/></div>   		
 				<table class="table table-bordered table-hover">					            					
 				    <thead >
 				      <tr>

@@ -120,8 +120,6 @@ function switches(a,i){
 
 <body onLoad="showTime()">
 <%
-	response.setContentType("text/html;charset=UTF-8");
-	request.setCharacterEncoding("UTF-8");
 
 	String user=(String)session.getAttribute("user");
 	String authority=(String)session.getAttribute("authority");
