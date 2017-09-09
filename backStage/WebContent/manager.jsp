@@ -166,7 +166,7 @@ function switches(a,i){
             	{					
             		ResultSet rs = pstmt.executeQuery();
             	%> 
-            	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">會員管理</div><br/><br/>
+            	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">管理員管理</div><br/><br/>
 				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢管理員名稱:<input type="text" placeholder="請輸入查詢帳號" onchange="inquire(this)" /></div>   		
 				<table class="table table-bordered table-hover">					            					
 				    <thead >
