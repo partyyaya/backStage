@@ -12,8 +12,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="http://www.bootcss.com/p/bootstrap-switch/static/stylesheets/bootstrapSwitch.css">
-<script src="http://www.bootcss.com/p/bootstrap-switch/static/js/bootstrapSwitch.js"></script>
+<link rel="stylesheet" href="switch/bootstrapSwitch.css">
+<script src="switch/bootstrapSwitch.js"></script>
 
 <link rel="shortcut icon" href="img/logo2.png">
 <title>樂活之旅</title>
