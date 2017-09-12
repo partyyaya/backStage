@@ -23,6 +23,7 @@ public class changegiftByAjax extends HttpServlet {
 		String price = request.getParameter("price");
 		String tel = request.getParameter("tel");
 		String ID = request.getParameter("ID");
+		System.out.println(tel);
 		try {			
 			Class.forName("com.mysql.jdbc.Driver");		
 		} catch (Exception e) {
@@ -42,6 +43,7 @@ public class changegiftByAjax extends HttpServlet {
 			{	
 			pstmt.setString(1, value);
 			pstmt.setString(2, ID);
+			
 			pstmt.executeUpdate();
 			}catch (Exception e){
 				System.out.println(e);

@@ -104,8 +104,12 @@ function chtel(e,i){
 		async: false
 	});
 	var tel = e.value;
+	var  formData = "tel="+tel+"&ID="+i;
 	//var oldpasswd=e.defaultValue;
-	$.get("changegiftByAjax?tel="+tel+"&ID="+i,function(data,status){					
+	$.ajax({
+	    url : "changegiftByAjax",
+	    type: "POST",
+	    data : formData
 	});
 }
 
