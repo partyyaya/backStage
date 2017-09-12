@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
@@ -12,11 +13,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/delgiftByAjax")
-public class delgiftByAjax extends HttpServlet {
+
+@WebServlet("/changegiftByAjax")
+public class changegiftByAjax extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String Name = request.getParameter("Gid");
+		String Name = request.getParameter("name");
+		String produce = request.getParameter("produce");
+		String price = request.getParameter("price");
+		String tel = request.getParameter("tel");
+		String ID = request.getParameter("ID");
 		try {			
 			Class.forName("com.mysql.jdbc.Driver");		
 		} catch (Exception e) {
@@ -25,16 +31,18 @@ public class delgiftByAjax extends HttpServlet {
 		Properties prop = new Properties();
 		prop.setProperty("user", "root");
 		prop.setProperty("password", "root");
-				
-		String sql = "DELETE FROM gift WHERE Gid=?";
+		
+		String name = Name==null?(tel==null?(produce==null?(price==null?"":"Price"):"ProduceOrg"):"ContactTel"):"Name";
+		String value = name=="Name"?Name:(name=="ContactTel"?tel:(name=="ProduceOrg"?produce:(name=="Price"?price:null)));
+		String sql = "UPDATE gift SET "+name+"=? WHERE ID=?";
 		try (
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
 				PreparedStatement pstmt=conn.prepareStatement(sql);
 				)
 			{	
-			System.out.println(Name);
-			pstmt.setString(1,Name);
-			pstmt.execute();
+			pstmt.setString(1, value);
+			pstmt.setString(2, ID);
+			pstmt.executeUpdate();
 			}catch (Exception e){
 				System.out.println(e);
 			}		
@@ -44,5 +52,6 @@ public class delgiftByAjax extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
 
 }

@@ -69,8 +69,48 @@ function showTime(){
 		window.setTimeout(showTime,1000);
 }
 
+function chname(e,i){
+	$.ajaxSetup({
+		async: false
+	});
+	var name = e.value;
+	//var oldpasswd=e.defaultValue;
+	$.get("changegiftByAjax?name="+name+"&ID="+i,function(data,status){					
+	});
+}
+
+function chproduce(e,i){
+	$.ajaxSetup({
+		async: false
+	});
+	var produce = e.value;
+	//var oldpasswd=e.defaultValue;
+	$.get("changegiftByAjax?produce="+produce+"&ID="+i,function(data,status){					
+	});
+}
+
+function chprice(e,i){
+	$.ajaxSetup({
+		async: false
+	});
+	var price = e.value;
+	//var oldpasswd=e.defaultValue;
+	$.get("changegiftByAjax?price="+price+"&ID="+i,function(data,status){					
+	});
+}
+
+function chtel(e,i){
+	$.ajaxSetup({
+		async: false
+	});
+	var tel = e.value;
+	//var oldpasswd=e.defaultValue;
+	$.get("changegiftByAjax?tel="+tel+"&ID="+i,function(data,status){					
+	});
+}
+
 function del(btn,i){	
-	$.get("delgiftByAjax?Name="+i,function(data,status){					
+	$.get("delgiftByAjax?ID="+i,function(data,status){					
 	});
 	var row = btn.parentNode.parentNode;
 	row.parentNode.removeChild(row);
@@ -138,7 +178,7 @@ function inquire(e){
             	{	
             		ResultSet rs = pstmt.executeQuery();
             	%> 
-            	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">會員管理</div><br/><br/>
+            	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">商品管理</div><br/><br/>
 				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢商品名稱:<input type="text" placeholder="請輸入查詢帳號" onchange="inquire(this)"/></div>   		
 				<table class="table table-bordered table-hover">					            					
 				    <thead >
@@ -158,11 +198,11 @@ function inquire(e){
 				      <tr>
 				      
 				         <td><%=i%></td>
-				         <td><%=rs.getString("Name") %></td>
-				         <td><%=rs.getString("ProduceOrg") %></td>
-				         <td><%=rs.getString("Price") %></td>
-				         <td><%=rs.getString("ContactTel")%></td>
-				         <%if(author>=1){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,'<%=rs.getString("Name")%>')">刪除</button></td><%} %>
+				         <td><input type="text"  value="<%=rs.getString("Name") %>" onchange="chname(this,'<%=rs.getString("ID")%>')"/></td>
+				         <td><input type="text"  value="<%=rs.getString("ProduceOrg") %>" onchange="chproduce(this,'<%=rs.getString("ID")%>')"/></td>
+				         <td><input type="text"  value="<%=rs.getString("Price") %>" onchange="chprice(this,'<%=rs.getString("ID")%>')"/></td>
+				         <td><input type="text"  value="<%=rs.getString("ContactTel") %>" onchange="chtel(this,'<%=rs.getString("ID")%>')"/></td>
+				         <%if(author>=1){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,'<%=rs.getString("ID")%>')">刪除</button></td><%} %>
 				      </tr>
 					  <% 
 					  i++;
