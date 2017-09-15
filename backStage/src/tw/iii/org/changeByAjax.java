@@ -35,7 +35,7 @@ public class changeByAjax extends HttpServlet {
 		String value = name=="passwd"?passwd:(name=="tel"?tel:(name=="email"?email:null));
 		String sql = "UPDATE member SET "+name+"=? WHERE user=?";
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/attractions",prop);
 				PreparedStatement pstmt=conn.prepareStatement(sql);
 				)
 			{	

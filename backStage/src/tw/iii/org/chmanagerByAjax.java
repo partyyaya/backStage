@@ -35,7 +35,7 @@ public class chmanagerByAjax extends HttpServlet {
 		String sql = "UPDATE manager SET "+name+"=? WHERE user=?";
 		System.out.println(sql);
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/attractions",prop);
 				PreparedStatement pstmt=conn.prepareStatement(sql);
 				)
 			{	

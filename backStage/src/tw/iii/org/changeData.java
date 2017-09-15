@@ -36,7 +36,7 @@ public class changeData extends HttpServlet {
 		
 		String sql = "UPDATE manager SET passwd=? WHERE user=?";
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/attractions",prop);
 				PreparedStatement pstmt=conn.prepareStatement(sql);
 				)
 			{	

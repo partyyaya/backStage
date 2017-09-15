@@ -37,7 +37,7 @@ public class changegiftByAjax extends HttpServlet {
 		String value = name=="Name"?Name:(name=="ContactTel"?tel:(name=="ProduceOrg"?produce:(name=="Price"?price:null)));
 		String sql = "UPDATE gift SET "+name+"=? WHERE ID=?";
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/attractions",prop);
 				PreparedStatement pstmt=conn.prepareStatement(sql);
 				)
 			{	

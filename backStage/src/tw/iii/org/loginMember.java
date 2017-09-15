@@ -41,7 +41,7 @@ public class loginMember extends HttpServlet {
 			System.out.println(e);
 		}		
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming"
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/attractions"
 				                       ,prop);
 				PreparedStatement pstmt=conn.prepareStatement(sql);			
 				)

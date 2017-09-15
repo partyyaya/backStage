@@ -168,22 +168,22 @@ function inquire(e){
         <div class="col-xs-12" style="height:100vh">
         	<div class="list-group col-xs-2">
         		<a href="member.jsp" class="list-group-item ">會員管理</a>
+                <a href="gift.jsp" class="list-group-item ">商品管理</a>
                 <a href="manager.jsp" class="list-group-item ">權限管理</a>
-				<a href="gift.jsp" class="list-group-item ">商品管理</a>
 				<a href="change.jsp" class="list-group-item ">修改帳密</a><br/><br/>	
             	<div id="gettime" style="text-align:center;">現在時間<br/><span id="time"></span></div>
         	</div>
             <div class="col-xs-10" id="tablecontent" style="overflow-y:scroll; SCROLLBAR-FACE-COLOR: #c2d3fc;">
             <%
             try (
-            		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
+            		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/attractions",prop);
             		PreparedStatement pstmt=conn.prepareStatement(sql);				
             		)
             	{	
             		ResultSet rs = pstmt.executeQuery();
             	%> 
             	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">商品管理</div><br/><br/>
-				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢商品名稱:<input type="text" placeholder="請輸入查詢帳號" onchange="inquire(this)"/></div>   		
+				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢商品名稱:<input type="text" placeholder="請輸入查詢名稱" onchange="inquire(this)"/></div>   		
 				<table class="table table-bordered table-hover">					            					
 				    <thead >
 				      <tr>

@@ -28,7 +28,7 @@ public class delgiftByAjax extends HttpServlet {
 				
 		String sql = "DELETE FROM gift WHERE Gid=?";
 		try (
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ming",prop);
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/attractions",prop);
 				PreparedStatement pstmt=conn.prepareStatement(sql);
 				)
 			{	
