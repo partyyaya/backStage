@@ -60,6 +60,13 @@ input{
 	border-width:0px;
 }
 
+.loading{ 
+ background:#FC0606; /*設置進度條的顏色*/ 
+ height:2px; /*設置進度條的高度*/ 
+ position:fixed; /*設定進度條跟隨屏幕滾動*/ 
+ top:0; /*將進度條固定在頁面頂部*/ 
+ z-index:99999; /*提高進度條的優先層級，避免被其他層遮擋*/ 
+} 
 </style>
 <script>
 function showTime(){
@@ -111,6 +118,7 @@ function inquire(e){
 </script>
 </head>
 <body onLoad="showTime()">
+<div class="loading"></div>
 <%
 	String user=(String)session.getAttribute("user");
 	String authority=(String)session.getAttribute("authority");
@@ -152,6 +160,12 @@ function inquire(e){
 				<a href="change.jsp" class="list-group-item ">修改帳密</a><br/><br/>	
             	<div id="gettime" style="text-align:center;">現在時間<br/><span id="time"></span></div>
         	</div>
+        	
+        	<script type="text/javascript"> 
+			 $('.loading').animate({'width':'40%'},100); 
+			 //第一個進度節點 
+			</script> 
+			
             <div class="col-xs-10" id="tablecontent" style="overflow-y:scroll; SCROLLBAR-FACE-COLOR: #c2d3fc;">
             <%
             try (
@@ -161,8 +175,13 @@ function inquire(e){
             	{					
             		ResultSet rs = pstmt.executeQuery();
             	%> 
-            	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">會員管理</div><br/><br/>
+            	<div class="col-xs-12" style="font-size:23px;font-weight:bold;text-align:left;">會員管理</div><br/><br/>			
 				<div class="col-xs-12" style="font-size:15px;font-weight:bold;text-align:left;">查詢會員名稱:<input type="text" placeholder="請輸入查詢帳號" onchange="inquire(this)"/></div>   		
+				
+				<script type="text/javascript"> 
+				 $('.loading').animate({'width':'60%'},100); 
+				</script> 
+				
 				<table class="table table-bordered table-hover">					            					
 				    <thead >
 				      <tr>
@@ -196,11 +215,24 @@ function inquire(e){
 			           %>
 		           </tbody>
 				</table>
+				
+				<script type="text/javascript"> 
+				 $('.loading').animate({'width':'80%'},100); 
+				//第二個進度節點 
+				</script> 
+				
 				<div style="font-size:10px;font-weight:bold;text-align:center;">總共符合:<%=i-1%>筆資料</div>
         	</div>
         </div>
 	</div>
 </div>
 </body>
+	<script type="text/javascript"> 
+					 $('.loading').animate({'width':'100%'},100); 
+					 $(document).ready(function(){ 
+						 $('.loading').fadeOut();  
+						});
+	</script> 
+	
 </html>
 
