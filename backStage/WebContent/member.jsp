@@ -190,7 +190,7 @@ function inquire(e){
 				         <th>密碼</th>
 				         <th>電話</th>
 				         <th>信箱</th>
-				         <%if(author>=1){%><th>刪除</th><%} %>
+				         <%if(author==2){%><th>刪除</th><%} %>
 				      </tr>
 				    </thead>
 				    <tbody>
@@ -201,10 +201,10 @@ function inquire(e){
 				      
 				         <td><%=i%></td>
 				         <td><%=rs.getString("user") %></td>
-				         <td><input type="text"  value="<%=rs.getString("passwd") %>" onchange="chpasswd(this,'<%=rs.getString("user")%>')"/></td>
-				         <td><input type="text"  value="<%=rs.getString("tel") %>" onchange="chtel(this,'<%=rs.getString("user")%>')"/></td>
-				         <td><input type="text"  value="<%=rs.getString("email")%>" onchange="chemail(this,'<%=rs.getString("user")%>')"/></td>
-				         <%if(author>=1){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,'<%=rs.getString("user")%>')">刪除</button></td><%} %>
+				         <td><input type="text"  value="<%=rs.getString("passwd") %>" <%if(author<1){%>readonly<%} %> onchange="chpasswd(this,'<%=rs.getString("user")%>')"/></td>
+				         <td><input type="text"  value="<%=rs.getString("tel") %>" <%if(author<1){%>readonly<%} %> onchange="chtel(this,'<%=rs.getString("user")%>')"/></td>
+				         <td><input type="text"  value="<%=rs.getString("email")%>" <%if(author<1){%>readonly<%} %> onchange="chemail(this,'<%=rs.getString("user")%>')"/></td>
+				         <%if(author==2){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,'<%=rs.getString("user")%>')">刪除</button></td><%} %>
 				      </tr>
 					  <% 
 					  i++;

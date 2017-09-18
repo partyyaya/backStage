@@ -212,7 +212,7 @@ function inquire(e){
 				         <th>供應商</th>
 				         <th>價格</th>
 				         <th>電話</th>
-				         <%if(author>=1){%><th>刪除</th><%} %>
+				         <%if(author==2){%><th>刪除</th><%} %>
 				      </tr>
 				    </thead>
 				    <tbody>
@@ -222,11 +222,11 @@ function inquire(e){
 				      <tr>
 				      
 				         <td><%=i%></td>
-				         <td><input type="text"  value="<%=rs.getString("Name") %>" onchange="chname(this,'<%=rs.getString("ID")%>')"/></td>
-				         <td><input type="text"  value="<%=rs.getString("ProduceOrg") %>" onchange="chproduce(this,'<%=rs.getString("ID")%>')"/></td>
-				         <td><input type="text"  value="<%=rs.getString("Price") %>" onchange="chprice(this,'<%=rs.getString("ID")%>')"/></td>
-				         <td><input type="text"  value="<%=rs.getString("ContactTel") %>" onchange="chtel(this,'<%=rs.getString("ID")%>')"/></td>
-				         <%if(author>=1){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,'<%=rs.getString("ID")%>')">刪除</button></td><%} %>
+				         <td><input type="text"  value="<%=rs.getString("Name") %>" <%if(author<1){%>readonly<%} %> onchange="chname(this,'<%=rs.getString("ID")%>')"/></td>
+				         <td><input type="text"  value="<%=rs.getString("ProduceOrg") %>" <%if(author<1){%>readonly<%} %> onchange="chproduce(this,'<%=rs.getString("ID")%>')"/></td>
+				         <td><input type="text"  value="<%=rs.getString("Price") %>" <%if(author<1){%>readonly<%} %> onchange="chprice(this,'<%=rs.getString("ID")%>')"/></td>
+				         <td><input type="text"  value="<%=rs.getString("ContactTel") %>" <%if(author<1){%>readonly<%} %> onchange="chtel(this,'<%=rs.getString("ID")%>')"/></td>
+				         <%if(author==2){%><td><button type="button" class="btn btn-danger" id="delete" onClick="del(this,'<%=rs.getString("ID")%>')">刪除</button></td><%} %>
 				      </tr>
 					  <% 
 					  i++;
