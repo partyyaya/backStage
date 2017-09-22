@@ -171,7 +171,7 @@ function inquire(e){
             <div class="col-xs-5">
         	</div>
             <div class="col-xs-3" style="text-align:center; padding-top:15px;">
-            安安 ,<span style="color:blue;font-size:13px"> <%=user%>  |  <a id="logout" href="logOut">登出</a></span>
+            歡迎,<span style="color:blue;font-size:13px"> <%=user%>&nbsp;&nbsp;&nbsp;<button style="margin-bottom:3px;" type="button" class="btn btn-danger" onclick="javascript:location.href='logOut'" >登出</button></span>
         	</div>
         </div>
         <div class="col-xs-12" style="height:100vh">
@@ -204,7 +204,7 @@ function inquire(e){
 			 $('.loading').animate({'width':'60%'},100); 
 			</script> 
 				
-				<table class="table table-bordered table-hover">					            					
+				<table class="table table-bordered table-hover" style="font-size:5px;">					            					
 				    <thead >
 				      <tr>
 				      	 <th>編號</th>

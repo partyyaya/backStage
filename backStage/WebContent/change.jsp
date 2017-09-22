@@ -154,7 +154,7 @@ function checkAll(){
             <div class="col-xs-5">
         	</div>
             <div class="col-xs-3" style="text-align:center; padding-top:15px;">
-            安安 ,<span style="color:blue;font-size:13px"> <%=user%>  |  <a id="logout" href="logOut">登出</a></span>
+            歡迎 ,<span style="color:blue;font-size:13px"><%=user%>&nbsp;&nbsp;&nbsp;<button style="margin-bottom:3px;" type="button" class="btn btn-danger" onclick="javascript:location.href='logOut'" >登出</button></span>
         	</div>
         </div>
         <div class="col-xs-12" style="height:100vh">
@@ -189,42 +189,42 @@ function checkAll(){
 			 $('.loading').animate({'width':'80%'},100); 
 			</script>
 				    
-				<form class="col-sm-5 form-horizontal" action="changeData" method='post' onsubmit="return checkAll();"  style="border-radius: 4px;height:450px;border: 2px solid black;background-color: rgba(0,0,0,0.3);">
+				<form class="col-sm-10 form-horizontal" action="changeData" method='post' onsubmit="return checkAll();"  style="border-radius: 4px;height:400px;border: 2px solid black;background-color: rgba(0,0,0,0.3);">
 						<br/><br/><br/>
 	<div class="form-group" style="margin-top:2px">
-	<label for="user" class="col-sm-3 control-label" style="color:black;font-weight:bold;font-size:15px;">帳號 : </label>
+	<label for="user" class="col-sm-4 control-label" style="color:black;font-weight:bold;font-size:15px;">帳號 : </label>
     	<div class="col-sm-6">
       		<input type="text"  class="form-control" value="<%=rs.getString("user") %>" readonly />
     	</div>
     </div>
     <div class="form-group" style="margin-top:2px">
-	<label for="user" class="col-sm-3 control-label" style="color:black;font-weight:bold;font-size:15px;">密碼 : </label>
+	<label for="user" class="col-sm-4 control-label" style="color:black;font-weight:bold;font-size:15px;">密碼 : </label>
     	<div class="col-sm-6">
       		<input type="text"  class="form-control" value="<%=rs.getString("passwd") %>" readonly />
     	</div>
     </div>
 	<div class="form-group" style="margin-top:2px">
-	<label for="passwd" class="col-sm-3 control-label" style="color:black;font-weight:bold;font-size:15px;">新密碼 :</label>
+	<label for="passwd" class="col-sm-4 control-label" style="color:black;font-weight:bold;font-size:15px;">新密碼 :</label>
     	<div class="col-sm-6">
       		<input type="password" name="passwd" id="newPasswd" class="form-control" placeholder="設置新密碼(英文或數字)" onblur="checkPass()">
     	</div>
-    	<span id="passwdId" class="col-sm-3" style="padding-top:7px;"></span>
+    	<span id="passwdId" class="col-sm-2" style="padding-top:7px;"></span>
     </div>
     <div class="form-group" style="margin-top:2px">
-	<label for="ckpasswd" class="col-sm-3 control-label" style="color:black;font-weight:bold;font-size:15px;">確認密碼 : </label>
+	<label for="ckpasswd" class="col-sm-4 control-label" style="color:black;font-weight:bold;font-size:15px;">確認密碼 : </label>
     	<div class="col-sm-6">
       		<input type="password" class="form-control" id="cknewPasswd" placeholder="確認新密碼" onblur="doubleCheck()">
     	</div>
-    	<span id="ckId" class="col-sm-3" style="padding-top:7px;"></span>
+    	<span id="ckId" class="col-sm-2" style="padding-top:7px;"></span>
     </div>
     <div class="form-group" style="margin-top:2px">
-	<label for="user" class="col-sm-3 control-label" style="color:black;font-weight:bold;font-size:15px;">權力等級 : </label>
+	<label for="user" class="col-sm-4 control-label" style="color:black;font-weight:bold;font-size:15px;">權力等級 : </label>
     	<div class="col-sm-6">
       		<input type="text"  class="form-control" value="<%=rs.getString("authority") %>" readonly />
     	</div>
     </div>
     <div class="form-group">
-		<div class="col-sm-offset-3 col-sm-6">
+		<div class="col-sm-offset-4 col-sm-6">
 			<input type="submit" class="btn btn-default" value="確定更改"/>
 		</div>
 	</div>
